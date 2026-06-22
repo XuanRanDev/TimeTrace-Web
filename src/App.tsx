@@ -1,6 +1,8 @@
 import { useEffect, useSyncExternalStore } from 'react'
 import { BrowserRouter, Routes, Route, useLocation } from 'react-router-dom'
 import Navbar from './components/Navbar'
+import MouseGlow from './components/MouseGlow'
+import Particles from './components/Particles'
 import Hero from './components/Hero'
 import Features from './components/Features'
 import HowItWorks from './components/HowItWorks'
@@ -35,6 +37,8 @@ function SiteLayout({ children }: { children: React.ReactNode }) {
 
   return (
     <div className="min-h-screen bg-dark">
+      <MouseGlow />
+      <Particles />
       <Navbar scrolled={scrolled} />
       {children}
       <Footer />

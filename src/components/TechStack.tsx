@@ -1,4 +1,5 @@
-import { useEffect, useRef } from 'react'
+import { useEffect, useRef, useState } from 'react'
+import { TiltCard } from './InteractiveCards'
 
 const stack = [
   { name: 'Python 3.12', desc: '运行时', color: '#3776AB' },
@@ -13,16 +14,14 @@ const stack = [
 
 function TechCard({ tech, index }: { tech: typeof stack[0]; index: number }) {
   const ref = useRef<HTMLDivElement>(null)
+  const [visible, setVisible] = useState(false)
 
   useEffect(() => {
     const el = ref.current
     if (!el) return
     const observer = new IntersectionObserver(
       ([entry]) => {
-        if (entry.isIntersecting) {
-          el.style.opacity = '1'
-          el.style.transform = 'translateY(0) scale(1)'
-        }
+        if (entry.isIntersecting) setVisible(true)
       },
       { threshold: 0.1 }
     )
@@ -33,17 +32,32 @@ function TechCard({ tech, index }: { tech: typeof stack[0]; index: number }) {
   return (
     <div
       ref={ref}
-      className="group relative bg-surface/50 hover:bg-surface/80 rounded-xl p-5 border border-white/5 hover:border-white/10 transition-all duration-300 text-center hover:glow-sm hover:scale-105"
-      style={{ opacity: 0, transform: 'translateY(20px) scale(0.95)', transition: `all 0.5s cubic-bezier(0.16, 1, 0.3, 1) ${index * 80}ms` }}
+      style={{
+        opacity: visible ? 1 : 0,
+        transform: visible ? 'translateY(0) scale(1)' : 'translateY(30px) scale(0.9)',
+        transition: `all 0.6s cubic-bezier(0.16, 1, 0.3, 1) ${index * 100}ms`,
+      }}
     >
-      <div
-        className="w-10 h-10 rounded-lg mx-auto mb-3 flex items-center justify-center text-white font-bold text-sm group-hover:scale-110 transition-transform duration-300"
-        style={{ background: `${tech.color}20`, color: tech.color }}
-      >
-        {tech.name.charAt(0)}
-      </div>
-      <div className="text-sm font-semibold text-white mb-1">{tech.name}</div>
-      <div className="text-xs text-text-secondary">{tech.desc}</div>
+      <TiltCard tiltAmount={6}>
+        <div className="group relative bg-surface/50 hover:bg-surface/80 rounded-xl p-5 border border-white/5 hover:border-white/15 transition-all duration-300 text-center hover:glow-sm overflow-hidden">
+          <div
+            className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500"
+            style={{
+              background: `radial-gradient(circle at 50% 50%, ${tech.color}15, transparent 70%)`,
+            }}
+          />
+          <div className="relative z-10">
+            <div
+              className="w-10 h-10 rounded-lg mx-auto mb-3 flex items-center justify-center text-white font-bold text-sm group-hover:scale-125 group-hover:rotate-6 transition-all duration-500"
+              style={{ background: `${tech.color}20`, color: tech.color }}
+            >
+              {tech.name.charAt(0)}
+            </div>
+            <div className="text-sm font-semibold text-white mb-1">{tech.name}</div>
+            <div className="text-xs text-text-secondary">{tech.desc}</div>
+          </div>
+        </div>
+      </TiltCard>
     </div>
   )
 }

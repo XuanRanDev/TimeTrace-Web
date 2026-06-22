@@ -1,4 +1,5 @@
-import { useEffect, useRef } from 'react'
+import { useEffect, useRef, useState } from 'react'
+import { SpotlightCard } from './InteractiveCards'
 
 const steps = [
   {
@@ -45,16 +46,14 @@ const steps = [
 
 function StepCard({ step, index }: { step: typeof steps[0]; index: number }) {
   const ref = useRef<HTMLDivElement>(null)
+  const [visible, setVisible] = useState(false)
 
   useEffect(() => {
     const el = ref.current
     if (!el) return
     const observer = new IntersectionObserver(
       ([entry]) => {
-        if (entry.isIntersecting) {
-          el.style.opacity = '1'
-          el.style.transform = 'translateY(0)'
-        }
+        if (entry.isIntersecting) setVisible(true)
       },
       { threshold: 0.2 }
     )
@@ -65,30 +64,37 @@ function StepCard({ step, index }: { step: typeof steps[0]; index: number }) {
   return (
     <div
       ref={ref}
-      className="relative text-center group"
-      style={{ opacity: 0, transform: 'translateY(30px)', transition: `all 0.6s cubic-bezier(0.16, 1, 0.3, 1) ${index * 150}ms` }}
+      className="relative text-center"
+      style={{
+        opacity: visible ? 1 : 0,
+        transform: visible ? 'translateY(0) scale(1)' : 'translateY(40px) scale(0.9)',
+        transition: `all 0.7s cubic-bezier(0.16, 1, 0.3, 1) ${index * 150}ms`,
+      }}
     >
-      <div className="relative z-10 inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-surface border border-white/10 mb-6 group-hover:border-accent/30 group-hover:glow-sm group-hover:scale-110 transition-all duration-500">
-        <div className="text-accent">{step.icon}</div>
-      </div>
-      <div className="text-xs text-text-secondary font-mono mb-2 opacity-50">{step.num}</div>
-      <h3 className="text-lg font-semibold text-white mb-2">{step.title}</h3>
-      <p className="text-sm text-text-secondary leading-relaxed">{step.desc}</p>
+      <SpotlightCard className="rounded-2xl border border-white/5 hover:border-accent/20 transition-all duration-500 bg-transparent">
+        <div className="p-6">
+          <div className="relative z-10 inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-surface border border-white/10 mb-6 group-hover:border-accent/30 transition-all duration-500 hover:scale-110 hover:glow-sm">
+            <div className="text-accent">{step.icon}</div>
+          </div>
+          <div className="text-xs text-text-secondary font-mono mb-2 opacity-50">{step.num}</div>
+          <h3 className="text-lg font-semibold text-white mb-2">{step.title}</h3>
+          <p className="text-sm text-text-secondary leading-relaxed">{step.desc}</p>
+        </div>
+      </SpotlightCard>
     </div>
   )
 }
 
 export default function HowItWorks() {
   const lineRef = useRef<HTMLDivElement>(null)
+  const [lineVisible, setLineVisible] = useState(false)
 
   useEffect(() => {
     const el = lineRef.current
     if (!el) return
     const observer = new IntersectionObserver(
       ([entry]) => {
-        if (entry.isIntersecting) {
-          el.style.width = '100%'
-        }
+        if (entry.isIntersecting) setLineVisible(true)
       },
       { threshold: 0.3 }
     )
@@ -113,12 +119,27 @@ export default function HowItWorks() {
         </div>
 
         <div className="relative">
-          <div className="hidden md:block absolute top-16 left-0 right-0 h-px bg-white/10 overflow-hidden">
+          <div className="hidden md:block absolute top-16 left-0 right-0 h-px bg-white/5" ref={lineRef}>
             <div
-              ref={lineRef}
-              className="h-full bg-gradient-to-r from-accent/50 via-primary to-accent/50"
-              style={{ width: '0%', transition: 'width 1.2s cubic-bezier(0.16, 1, 0.3, 1)' }}
+              className="h-full"
+              style={{
+                width: lineVisible ? '100%' : '0%',
+                background: 'linear-gradient(90deg, transparent, rgba(6,182,212,0.4), rgba(37,99,235,0.6), rgba(6,182,212,0.4), transparent)',
+                transition: 'width 1.5s cubic-bezier(0.16, 1, 0.3, 1)',
+                boxShadow: '0 0 20px rgba(37,99,235,0.3), 0 0 40px rgba(6,182,212,0.15)',
+              }}
             />
+            {lineVisible && (
+              <div
+                className="absolute top-1/2 -translate-y-1/2 w-2 h-2 rounded-full"
+                style={{
+                  background: 'linear-gradient(135deg, #60a5fa, #06b6d4)',
+                  boxShadow: '0 0 10px rgba(37,99,235,0.5)',
+                  animation: 'progress-line 1.5s cubic-bezier(0.16, 1, 0.3, 1) forwards',
+                  left: '0%',
+                }}
+              />
+            )}
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
@@ -128,6 +149,12 @@ export default function HowItWorks() {
           </div>
         </div>
       </div>
+      <style>{`
+        @keyframes progress-line {
+          from { left: 0%; }
+          to { left: 100%; }
+        }
+      `}</style>
     </section>
   )
 }
