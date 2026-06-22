@@ -10,12 +10,12 @@ function AnimatedText({ text, className, delay = 0 }: { text: string; className?
   }, [delay])
 
   return (
-    <span className={className}>
+    <span className={className} style={{ display: 'inline-block' }}>
       {text.split('').map((char, i) => (
         <span
           key={i}
-          className="inline-block"
           style={{
+            display: 'inline-block',
             opacity: visible ? 1 : 0,
             transform: visible ? 'translateY(0) rotateX(0)' : 'translateY(40px) rotateX(-90deg)',
             transition: `all 0.5s cubic-bezier(0.16, 1, 0.3, 1) ${i * 0.04}s`,
@@ -89,12 +89,12 @@ export default function Hero() {
         </div>
 
         <h1 className="text-5xl md:text-7xl lg:text-8xl font-extrabold tracking-tight leading-[1.1] mb-6">
-          <span className="text-white block" style={{ opacity: 0, animation: 'fade-in-up 0.6s ease-out 0.2s forwards' }}>
+          <span className="text-white block">
             <AnimatedText text="时间的痕迹" delay={300} />
           </span>
           <br />
-          <span className="gradient-text block" style={{ opacity: 0, animation: 'fade-in-up 0.6s ease-out 0.4s forwards' }}>
-            <AnimatedText text="井然有序" delay={500} />
+          <span className="gradient-text block">
+            <AnimatedText text="井然有序" delay={600} />
           </span>
         </h1>
 
