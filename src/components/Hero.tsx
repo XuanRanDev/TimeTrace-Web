@@ -1,33 +1,6 @@
 import { useEffect, useRef, useState } from 'react'
 import { TiltCard } from './InteractiveCards'
 
-function AnimatedText({ text, className, delay = 0 }: { text: string; className?: string; delay?: number }) {
-  const [visible, setVisible] = useState(false)
-
-  useEffect(() => {
-    const timer = setTimeout(() => setVisible(true), delay)
-    return () => clearTimeout(timer)
-  }, [delay])
-
-  return (
-    <span className={className} style={{ display: 'inline-block' }}>
-      {text.split('').map((char, i) => (
-        <span
-          key={i}
-          style={{
-            display: 'inline-block',
-            opacity: visible ? 1 : 0,
-            transform: visible ? 'translateY(0) rotateX(0)' : 'translateY(40px) rotateX(-90deg)',
-            transition: `all 0.5s cubic-bezier(0.16, 1, 0.3, 1) ${i * 0.04}s`,
-          }}
-        >
-          {char === ' ' ? '\u00A0' : char}
-        </span>
-      ))}
-    </span>
-  )
-}
-
 export default function Hero() {
   const containerRef = useRef<HTMLDivElement>(null)
   const [mousePos, setMousePos] = useState({ x: 0, y: 0 })
@@ -89,18 +62,18 @@ export default function Hero() {
         </div>
 
         <h1 className="text-5xl md:text-7xl lg:text-8xl font-extrabold tracking-tight leading-[1.1] mb-6">
-          <span className="text-white block">
-            <AnimatedText text="时间的痕迹" delay={300} />
+          <span className="text-white block opacity-0 animate-fade-in-up" style={{ animationDelay: '0.2s' }}>
+            时间的痕迹
           </span>
           <br />
-          <span className="gradient-text block">
-            <AnimatedText text="井然有序" delay={600} />
+          <span className="gradient-text block opacity-0 animate-fade-in-up" style={{ animationDelay: '0.4s' }}>
+            井然有序
           </span>
         </h1>
 
         <p
           className="text-lg md:text-xl text-text-secondary max-w-2xl mx-auto mb-10 leading-relaxed opacity-0 animate-fade-in-up"
-          style={{ animationDelay: '0.7s' }}
+          style={{ animationDelay: '0.6s' }}
         >
           时迹是一款面向 NAS 的智能文件归档工具。自动提取 EXIF 拍摄时间、识别文件名时间戳，
           将散落的文件按 <span className="text-accent font-medium">年 / 月 / 分类</span> 重建为清晰的时间轴。
@@ -108,7 +81,7 @@ export default function Hero() {
 
         <div
           className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-16 opacity-0 animate-fade-in-up"
-          style={{ animationDelay: '0.85s' }}
+          style={{ animationDelay: '0.75s' }}
         >
           <a
             href="#install"
@@ -126,7 +99,7 @@ export default function Hero() {
         </div>
 
         <TiltCard tiltAmount={4}>
-          <div className="relative max-w-4xl mx-auto opacity-0 animate-scale-in" style={{ animationDelay: '1s' }}>
+          <div className="relative max-w-4xl mx-auto opacity-0 animate-scale-in" style={{ animationDelay: '0.9s' }}>
             <div className="absolute -inset-4 bg-gradient-to-r from-primary/20 via-accent/20 to-purple-500/20 rounded-2xl blur-xl opacity-40 animate-pulse" />
             <div className="relative bg-surface/80 backdrop-blur-sm rounded-2xl border border-white/10 p-6 glow">
               <div className="flex items-center gap-2 mb-4">
