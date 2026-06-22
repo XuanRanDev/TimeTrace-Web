@@ -28,7 +28,7 @@ export default function Navbar({ scrolled }: { scrolled: boolean }) {
 
   return (
     <nav
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
+      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
         scrolled
           ? 'bg-dark/80 backdrop-blur-xl border-b border-white/5 shadow-lg shadow-black/20'
           : 'bg-transparent'
@@ -36,10 +36,10 @@ export default function Navbar({ scrolled }: { scrolled: boolean }) {
     >
       <div className="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
         <a href="/" className="flex items-center gap-3 group">
-          <img src="/logo.png" alt="时迹" className="w-8 h-8 rounded-lg group-hover:scale-110 transition-transform" />
+          <img src="/logo.png" alt="时迹" className="w-8 h-8 rounded-lg group-hover:scale-110 group-hover:rotate-3 transition-all duration-300" />
           <span className="text-lg font-bold tracking-tight">
             <span className="text-white">时迹</span>
-            <span className="text-accent ml-1.5 font-medium text-sm opacity-70">TimeTrace</span>
+            <span className="text-accent ml-1.5 font-medium text-sm opacity-70 group-hover:opacity-100 transition-opacity duration-300">TimeTrace</span>
           </span>
         </a>
 
@@ -48,7 +48,7 @@ export default function Navbar({ scrolled }: { scrolled: boolean }) {
             <a
               key={link.href}
               href={link.href}
-              className={`px-4 py-2 text-sm rounded-lg transition-all duration-200 ${
+              className={`px-4 py-2 text-sm rounded-lg transition-all duration-300 ${
                 activeSection === link.href
                   ? 'text-white bg-white/10'
                   : 'text-text-secondary hover:text-white hover:bg-white/5'
@@ -59,17 +59,17 @@ export default function Navbar({ scrolled }: { scrolled: boolean }) {
           ))}
           <a
             href="#install"
-            className="ml-4 px-5 py-2 text-sm font-medium text-white bg-primary hover:bg-primary-dark rounded-lg transition-colors"
+            className="ml-4 px-5 py-2 text-sm font-medium text-white bg-primary hover:bg-primary-dark rounded-lg transition-all duration-300 hover:scale-105 hover:glow-sm"
           >
             立即使用
           </a>
         </div>
 
         <button
-          className="md:hidden text-text-secondary hover:text-white p-2"
+          className="md:hidden text-text-secondary hover:text-white p-2 transition-colors duration-200"
           onClick={() => setMobileOpen(!mobileOpen)}
         >
-          <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <svg className="w-6 h-6 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             {mobileOpen ? (
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
             ) : (
@@ -79,14 +79,15 @@ export default function Navbar({ scrolled }: { scrolled: boolean }) {
         </button>
       </div>
 
-      {mobileOpen && (
-        <div className="md:hidden bg-dark-lighter/95 backdrop-blur-xl border-t border-white/5 px-6 py-4 space-y-1">
-          {navLinks.map((link) => (
+      <div className={`md:hidden overflow-hidden transition-all duration-500 ease-in-out ${mobileOpen ? 'max-h-96 opacity-100' : 'max-h-0 opacity-0'}`}>
+        <div className="bg-dark-lighter/95 backdrop-blur-xl border-t border-white/5 px-6 py-4 space-y-1">
+          {navLinks.map((link, i) => (
             <a
               key={link.href}
               href={link.href}
               onClick={() => setMobileOpen(false)}
-              className="block px-4 py-3 text-sm text-text-secondary hover:text-white hover:bg-white/5 rounded-lg transition-colors"
+              className="block px-4 py-3 text-sm text-text-secondary hover:text-white hover:bg-white/5 rounded-lg transition-all duration-300"
+              style={{ transitionDelay: mobileOpen ? `${i * 50}ms` : '0ms' }}
             >
               {link.label}
             </a>
@@ -94,12 +95,12 @@ export default function Navbar({ scrolled }: { scrolled: boolean }) {
           <a
             href="#install"
             onClick={() => setMobileOpen(false)}
-            className="block px-4 py-3 text-sm font-medium text-white bg-primary hover:bg-primary-dark rounded-lg text-center transition-colors mt-2"
+            className="block px-4 py-3 text-sm font-medium text-white bg-primary hover:bg-primary-dark rounded-lg text-center transition-all duration-300 mt-2"
           >
             立即使用
           </a>
         </div>
-      )}
+      </div>
     </nav>
   )
 }

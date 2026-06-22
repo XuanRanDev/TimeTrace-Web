@@ -1,3 +1,5 @@
+import { useEffect, useRef } from 'react'
+
 const stack = [
   { name: 'Python 3.12', desc: '运行时', color: '#3776AB' },
   { name: 'FastAPI', desc: '后端框架', color: '#009688' },
@@ -8,6 +10,43 @@ const stack = [
   { name: 'APScheduler', desc: '任务调度', color: '#FF6F00' },
   { name: 'fnOS', desc: '运行平台', color: '#2563EB' },
 ]
+
+function TechCard({ tech, index }: { tech: typeof stack[0]; index: number }) {
+  const ref = useRef<HTMLDivElement>(null)
+
+  useEffect(() => {
+    const el = ref.current
+    if (!el) return
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          el.style.opacity = '1'
+          el.style.transform = 'translateY(0) scale(1)'
+        }
+      },
+      { threshold: 0.1 }
+    )
+    observer.observe(el)
+    return () => observer.disconnect()
+  }, [])
+
+  return (
+    <div
+      ref={ref}
+      className="group relative bg-surface/50 hover:bg-surface/80 rounded-xl p-5 border border-white/5 hover:border-white/10 transition-all duration-300 text-center hover:glow-sm hover:scale-105"
+      style={{ opacity: 0, transform: 'translateY(20px) scale(0.95)', transition: `all 0.5s cubic-bezier(0.16, 1, 0.3, 1) ${index * 80}ms` }}
+    >
+      <div
+        className="w-10 h-10 rounded-lg mx-auto mb-3 flex items-center justify-center text-white font-bold text-sm group-hover:scale-110 transition-transform duration-300"
+        style={{ background: `${tech.color}20`, color: tech.color }}
+      >
+        {tech.name.charAt(0)}
+      </div>
+      <div className="text-sm font-semibold text-white mb-1">{tech.name}</div>
+      <div className="text-xs text-text-secondary">{tech.desc}</div>
+    </div>
+  )
+}
 
 export default function TechStack() {
   return (
@@ -26,20 +65,8 @@ export default function TechStack() {
         </div>
 
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-          {stack.map((tech) => (
-            <div
-              key={tech.name}
-              className="group relative bg-surface/50 hover:bg-surface/80 rounded-xl p-5 border border-white/5 hover:border-white/10 transition-all duration-300 text-center hover:glow-sm"
-            >
-              <div
-                className="w-10 h-10 rounded-lg mx-auto mb-3 flex items-center justify-center text-white font-bold text-sm"
-                style={{ background: `${tech.color}20`, color: tech.color }}
-              >
-                {tech.name.charAt(0)}
-              </div>
-              <div className="text-sm font-semibold text-white mb-1">{tech.name}</div>
-              <div className="text-xs text-text-secondary">{tech.desc}</div>
-            </div>
+          {stack.map((tech, i) => (
+            <TechCard key={tech.name} tech={tech} index={i} />
           ))}
         </div>
       </div>

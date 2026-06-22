@@ -1,3 +1,5 @@
+import { useEffect, useRef } from 'react'
+
 const steps = [
   {
     num: '01',
@@ -41,7 +43,59 @@ const steps = [
   },
 ]
 
+function StepCard({ step, index }: { step: typeof steps[0]; index: number }) {
+  const ref = useRef<HTMLDivElement>(null)
+
+  useEffect(() => {
+    const el = ref.current
+    if (!el) return
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          el.style.opacity = '1'
+          el.style.transform = 'translateY(0)'
+        }
+      },
+      { threshold: 0.2 }
+    )
+    observer.observe(el)
+    return () => observer.disconnect()
+  }, [])
+
+  return (
+    <div
+      ref={ref}
+      className="relative text-center group"
+      style={{ opacity: 0, transform: 'translateY(30px)', transition: `all 0.6s cubic-bezier(0.16, 1, 0.3, 1) ${index * 150}ms` }}
+    >
+      <div className="relative z-10 inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-surface border border-white/10 mb-6 group-hover:border-accent/30 group-hover:glow-sm group-hover:scale-110 transition-all duration-500">
+        <div className="text-accent">{step.icon}</div>
+      </div>
+      <div className="text-xs text-text-secondary font-mono mb-2 opacity-50">{step.num}</div>
+      <h3 className="text-lg font-semibold text-white mb-2">{step.title}</h3>
+      <p className="text-sm text-text-secondary leading-relaxed">{step.desc}</p>
+    </div>
+  )
+}
+
 export default function HowItWorks() {
+  const lineRef = useRef<HTMLDivElement>(null)
+
+  useEffect(() => {
+    const el = lineRef.current
+    if (!el) return
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          el.style.width = '100%'
+        }
+      },
+      { threshold: 0.3 }
+    )
+    observer.observe(el)
+    return () => observer.disconnect()
+  }, [])
+
   return (
     <section id="how-it-works" className="py-24 relative">
       <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,rgba(6,182,212,0.06)_0%,transparent_60%)]" />
@@ -59,18 +113,17 @@ export default function HowItWorks() {
         </div>
 
         <div className="relative">
-          <div className="hidden md:block absolute top-16 left-0 right-0 h-px bg-gradient-to-r from-transparent via-white/10 to-transparent" />
+          <div className="hidden md:block absolute top-16 left-0 right-0 h-px bg-white/10 overflow-hidden">
+            <div
+              ref={lineRef}
+              className="h-full bg-gradient-to-r from-accent/50 via-primary to-accent/50"
+              style={{ width: '0%', transition: 'width 1.2s cubic-bezier(0.16, 1, 0.3, 1)' }}
+            />
+          </div>
 
           <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
-            {steps.map((step) => (
-              <div key={step.num} className="relative text-center group">
-                <div className="relative z-10 inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-surface border border-white/10 mb-6 group-hover:border-accent/30 group-hover:glow-sm transition-all duration-300">
-                  <div className="text-accent">{step.icon}</div>
-                </div>
-                <div className="text-xs text-text-secondary font-mono mb-2 opacity-50">{step.num}</div>
-                <h3 className="text-lg font-semibold text-white mb-2">{step.title}</h3>
-                <p className="text-sm text-text-secondary leading-relaxed">{step.desc}</p>
-              </div>
+            {steps.map((step, i) => (
+              <StepCard key={step.num} step={step} index={i} />
             ))}
           </div>
         </div>

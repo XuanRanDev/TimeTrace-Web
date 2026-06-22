@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect, useRef } from 'react'
 
 const installMethods = [
   {
@@ -50,10 +50,32 @@ export default function Install() {
   const [activeTab, setActiveTab] = useState('fpk')
   const method = installMethods.find((m) => m.id === activeTab)!
 
+  const sectionRef = useRef<HTMLDivElement>(null)
+
+  useEffect(() => {
+    const el = sectionRef.current
+    if (!el) return
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          el.style.opacity = '1'
+          el.style.transform = 'translateY(0)'
+        }
+      },
+      { threshold: 0.1 }
+    )
+    observer.observe(el)
+    return () => observer.disconnect()
+  }, [])
+
   return (
     <section id="install" className="py-24 relative">
       <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_bottom,rgba(37,99,235,0.06)_0%,transparent_60%)]" />
-      <div className="max-w-4xl mx-auto px-6 relative z-10">
+      <div
+        ref={sectionRef}
+        className="max-w-4xl mx-auto px-6 relative z-10"
+        style={{ opacity: 0, transform: 'translateY(30px)', transition: 'all 0.7s cubic-bezier(0.16, 1, 0.3, 1)' }}
+      >
         <div className="text-center mb-16">
           <span className="inline-block px-3 py-1 text-xs font-medium text-accent bg-accent/10 rounded-full mb-4">
             开始使用
@@ -71,9 +93,9 @@ export default function Install() {
             <button
               key={m.id}
               onClick={() => setActiveTab(m.id)}
-              className={`px-6 py-2.5 rounded-xl text-sm font-medium transition-all duration-200 ${
+              className={`px-6 py-2.5 rounded-xl text-sm font-medium transition-all duration-300 ${
                 activeTab === m.id
-                  ? 'bg-primary text-white glow-sm'
+                  ? 'bg-primary text-white glow-sm scale-105'
                   : 'bg-surface/50 text-text-secondary hover:text-white hover:bg-surface border border-white/5'
               }`}
             >
@@ -82,7 +104,7 @@ export default function Install() {
           ))}
         </div>
 
-        <div className="bg-surface/30 rounded-2xl border border-white/5 p-6 md:p-8">
+        <div className="bg-surface/30 rounded-2xl border border-white/5 p-6 md:p-8 hover:border-white/10 transition-colors duration-300">
           <p className="text-sm text-text-secondary mb-6">{method.desc}</p>
           <div className="space-y-4">
             {method.commands.map((cmd) => (
@@ -99,8 +121,12 @@ export default function Install() {
             { icon: '📦', title: '一键安装', desc: '通过 FPK 包管理器直接安装到 fnOS' },
             { icon: '🔧', title: '开发者友好', desc: 'Vite 热重载 + Uvicorn 自动重启' },
             { icon: '🚀', title: '生产就绪', desc: 'SQLite WAL 模式 + 增量扫描' },
-          ].map((item) => (
-            <div key={item.title} className="bg-surface/30 rounded-xl p-5 border border-white/5 text-center">
+          ].map((item, i) => (
+            <div
+              key={item.title}
+              className="bg-surface/30 rounded-xl p-5 border border-white/5 text-center hover:border-white/10 hover:bg-surface/50 transition-all duration-300 hover:scale-105"
+              style={{ transitionDelay: `${i * 100}ms` }}
+            >
               <div className="text-2xl mb-3">{item.icon}</div>
               <div className="text-sm font-semibold text-white mb-1">{item.title}</div>
               <div className="text-xs text-text-secondary">{item.desc}</div>

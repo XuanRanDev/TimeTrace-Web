@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 
 function Confetti() {
   const [particles] = useState(() =>
@@ -39,16 +39,10 @@ function Confetti() {
 }
 
 export default function PaymentSuccess() {
-  const [orderNo, setOrderNo] = useState('--')
-  const [amount, setAmount] = useState('--')
-  const [payTime, setPayTime] = useState('')
-
-  useEffect(() => {
-    const params = new URLSearchParams(window.location.search)
-    setOrderNo(params.get('out_trade_no') || 'TT' + Date.now().toString(36).toUpperCase())
-    setAmount(params.get('total_amount') ? '¥' + params.get('total_amount') : '--')
-    setPayTime(params.get('time') || new Date().toLocaleString('zh-CN'))
-  }, [])
+  const [params] = useState(() => new URLSearchParams(window.location.search))
+  const [orderNo] = useState(() => params.get('out_trade_no') || 'TT' + Date.now().toString(36).toUpperCase())
+  const [amount] = useState(() => params.get('total_amount') ? '¥' + params.get('total_amount') : '--')
+  const [payTime] = useState(() => params.get('time') || new Date().toLocaleString('zh-CN'))
 
   return (
     <div className="min-h-screen bg-dark flex items-center justify-center overflow-hidden relative">

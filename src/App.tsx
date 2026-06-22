@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useEffect, useSyncExternalStore } from 'react'
 import { BrowserRouter, Routes, Route, useLocation } from 'react-router-dom'
 import Navbar from './components/Navbar'
 import Hero from './components/Hero'
@@ -14,20 +14,24 @@ import TermsPage from './pages/TermsPage'
 const changelogMd = '/md/changelog.md'
 const docsMd = '/md/docs.md'
 
+function useScrolled() {
+  return useSyncExternalStore(
+    (callback) => {
+      window.addEventListener('scroll', callback, { passive: true })
+      return () => window.removeEventListener('scroll', callback)
+    },
+    () => window.scrollY > 20,
+    () => false,
+  )
+}
+
 function SiteLayout({ children }: { children: React.ReactNode }) {
-  const [scrolled, setScrolled] = useState(false)
   const location = useLocation()
+  const scrolled = useScrolled()
 
   useEffect(() => {
-    setScrolled(false)
     window.scrollTo(0, 0)
   }, [location.pathname])
-
-  useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 20)
-    window.addEventListener('scroll', onScroll, { passive: true })
-    return () => window.removeEventListener('scroll', onScroll)
-  }, [])
 
   return (
     <div className="min-h-screen bg-dark">

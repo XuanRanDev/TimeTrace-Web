@@ -10,6 +10,8 @@ const features = [
     title: '智能扫描',
     desc: '递归扫描目录下所有文件类型，支持增量扫描，仅处理新增和变更文件，避免重复处理。',
     gradient: 'from-blue-500 to-cyan-400',
+    color: '#3b82f6',
+    bgColor: 'rgba(37,99,235,0.15)',
   },
   {
     icon: (
@@ -20,6 +22,8 @@ const features = [
     title: '多源时间提取',
     desc: 'EXIF 拍摄日期 → 文件名时间戳（含 13 位 Unix 毫秒）→ 文件修改时间，三级回退确保准确性。',
     gradient: 'from-purple-500 to-pink-400',
+    color: '#a78bfa',
+    bgColor: 'rgba(139,92,246,0.15)',
   },
   {
     icon: (
@@ -30,6 +34,8 @@ const features = [
     title: 'SHA1 去重',
     desc: '基于文件哈希的精确去重，避免重复归档和重复备份，节省宝贵的存储空间。',
     gradient: 'from-emerald-500 to-teal-400',
+    color: '#10b981',
+    bgColor: 'rgba(16,185,129,0.15)',
   },
   {
     icon: (
@@ -40,6 +46,8 @@ const features = [
     title: '自动归档',
     desc: '按 {年}/{月}/{分类}/ 结构自动整理文件，支持复制和移动两种模式，灵活适配不同场景。',
     gradient: 'from-amber-500 to-orange-400',
+    color: '#f59e0b',
+    bgColor: 'rgba(245,158,11,0.15)',
   },
   {
     icon: (
@@ -50,6 +58,8 @@ const features = [
     title: '灵活规则',
     desc: '自定义分类规则（扩展名 / 文件名 / EXIF 品牌型号）和模板化命名，内置常见分类模板。',
     gradient: 'from-rose-500 to-red-400',
+    color: '#f43f5e',
+    bgColor: 'rgba(244,63,94,0.15)',
   },
   {
     icon: (
@@ -60,6 +70,8 @@ const features = [
     title: '定时任务',
     desc: '基于 Cron 表达式的定时调度，自动执行扫描和归档，真正做到全自动无人值守。',
     gradient: 'from-indigo-500 to-blue-400',
+    color: '#6366f1',
+    bgColor: 'rgba(99,102,241,0.15)',
   },
   {
     icon: (
@@ -70,6 +82,8 @@ const features = [
     title: '重复文件查找',
     desc: '按 SHA1 查找重复文件，直观展示重复情况，支持一键清理释放空间。',
     gradient: 'from-violet-500 to-purple-400',
+    color: '#a78bfa',
+    bgColor: 'rgba(139,92,246,0.15)',
   },
   {
     icon: (
@@ -80,6 +94,8 @@ const features = [
     title: '多用户隔离',
     desc: '基于 fnOS 网关的用户认证，数据按用户隔离，每个用户拥有独立的归档空间。',
     gradient: 'from-teal-500 to-emerald-400',
+    color: '#14b8a6',
+    bgColor: 'rgba(20,184,166,0.15)',
   },
 ]
 
@@ -105,14 +121,14 @@ function FeatureCard({ feature, index }: { feature: typeof features[0]; index: n
   return (
     <div
       ref={ref}
-      className="group relative bg-surface/50 hover:bg-surface/80 rounded-2xl p-6 border border-white/5 hover:border-white/10 transition-all duration-500 hover:glow-sm"
-      style={{ opacity: 0, transform: 'translateY(20px)', transitionDelay: `${index * 80}ms` }}
+      className="group relative bg-surface/50 hover:bg-surface/80 rounded-2xl p-6 border border-white/5 hover:border-white/10 transition-all duration-500 hover:glow-sm hover:scale-[1.02]"
+      style={{ opacity: 0, transform: 'translateY(25px)', transition: `all 0.6s cubic-bezier(0.16, 1, 0.3, 1) ${index * 80}ms` }}
     >
       <div
-        className="inline-flex items-center justify-center w-12 h-12 rounded-xl mb-4"
-        style={{ background: `linear-gradient(135deg, ${feature.gradient.includes('blue') ? 'rgba(37,99,235,0.15)' : feature.gradient.includes('purple') ? 'rgba(139,92,246,0.15)' : feature.gradient.includes('emerald') ? 'rgba(16,185,129,0.15)' : feature.gradient.includes('amber') ? 'rgba(245,158,11,0.15)' : feature.gradient.includes('rose') ? 'rgba(244,63,94,0.15)' : feature.gradient.includes('indigo') ? 'rgba(99,102,241,0.15)' : feature.gradient.includes('violet') ? 'rgba(139,92,246,0.15)' : 'rgba(20,184,166,0.15)'}, transparent)` }}
+        className="inline-flex items-center justify-center w-12 h-12 rounded-xl mb-4 group-hover:scale-110 transition-transform duration-300"
+        style={{ background: `linear-gradient(135deg, ${feature.bgColor}, transparent)` }}
       >
-        <div style={{ color: feature.gradient.includes('blue') ? '#3b82f6' : feature.gradient.includes('purple') ? '#a78bfa' : feature.gradient.includes('emerald') ? '#10b981' : feature.gradient.includes('amber') ? '#f59e0b' : feature.gradient.includes('rose') ? '#f43f5e' : feature.gradient.includes('indigo') ? '#6366f1' : feature.gradient.includes('violet') ? '#a78bfa' : '#14b8a6' }}>
+        <div style={{ color: feature.color }}>
           {feature.icon}
         </div>
       </div>

@@ -1,10 +1,10 @@
 import { useEffect, useRef } from 'react'
 
-function FloatingOrb({ className, delay }: { className: string; delay: number }) {
+function FloatingOrb({ className, delay, animClass }: { className: string; delay: number; animClass: string }) {
   return (
     <div
-      className={`absolute rounded-full blur-3xl opacity-20 animate-pulse ${className}`}
-      style={{ animationDelay: `${delay}s`, animationDuration: '4s' }}
+      className={`absolute rounded-full blur-3xl opacity-20 ${animClass} ${className}`}
+      style={{ animationDelay: `${delay}s` }}
     />
   )
 }
@@ -31,33 +31,33 @@ export default function Hero() {
 
   return (
     <section className="relative min-h-screen flex items-center justify-center overflow-hidden pt-16" ref={containerRef}>
-      <FloatingOrb className="w-96 h-96 bg-primary top-20 -left-48" delay={0} />
-      <FloatingOrb className="w-80 h-80 bg-accent top-40 right-0" delay={1.5} />
-      <FloatingOrb className="w-64 h-64 bg-purple-500 bottom-20 left-1/3" delay={3} />
+      <FloatingOrb className="w-96 h-96 bg-primary top-20 -left-48" delay={0} animClass="animate-float-1" />
+      <FloatingOrb className="w-80 h-80 bg-accent top-40 right-0" delay={1} animClass="animate-float-2" />
+      <FloatingOrb className="w-64 h-64 bg-purple-500 bottom-20 left-1/3" delay={2} animClass="animate-float-3" />
 
       <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(37,99,235,0.08)_0%,transparent_70%)]" />
 
       <div className="relative z-10 max-w-5xl mx-auto px-6 text-center">
-        <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/5 border border-white/10 text-sm text-text-secondary mb-8">
+        <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/5 border border-white/10 text-sm text-text-secondary mb-8 opacity-0 animate-fade-in-up" style={{ animationDelay: '0.1s' }}>
           <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
           fnOS 原生应用 · v1.0.1
         </div>
 
         <h1 className="text-5xl md:text-7xl lg:text-8xl font-extrabold tracking-tight leading-[1.1] mb-6">
-          <span className="text-white">时间的痕迹</span>
+          <span className="text-white opacity-0 animate-fade-in-up" style={{ animationDelay: '0.2s', display: 'inline-block' }}>时间的痕迹</span>
           <br />
-          <span className="gradient-text">井然有序</span>
+          <span className="gradient-text opacity-0 animate-fade-in-up" style={{ animationDelay: '0.35s', display: 'inline-block' }}>井然有序</span>
         </h1>
 
-        <p className="text-lg md:text-xl text-text-secondary max-w-2xl mx-auto mb-10 leading-relaxed">
+        <p className="text-lg md:text-xl text-text-secondary max-w-2xl mx-auto mb-10 leading-relaxed opacity-0 animate-fade-in-up" style={{ animationDelay: '0.5s' }}>
           时迹是一款面向 NAS 的智能文件归档工具。自动提取 EXIF 拍摄时间、识别文件名时间戳，
           将散落的文件按 <span className="text-accent font-medium">年 / 月 / 分类</span> 重建为清晰的时间轴。
         </p>
 
-        <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-16">
+        <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-16 opacity-0 animate-fade-in-up" style={{ animationDelay: '0.65s' }}>
           <a
             href="#install"
-            className="group relative px-8 py-3.5 bg-primary hover:bg-primary-dark text-white font-semibold rounded-xl transition-all duration-300 glow hover:scale-105"
+            className="group relative px-8 py-3.5 bg-primary hover:bg-primary-dark text-white font-semibold rounded-xl transition-all duration-300 glow hover:scale-105 animate-pulse-glow"
           >
             <span className="relative z-10">立即安装</span>
           </a>
@@ -69,7 +69,7 @@ export default function Hero() {
           </a>
         </div>
 
-        <div className="relative max-w-4xl mx-auto">
+        <div className="relative max-w-4xl mx-auto opacity-0 animate-scale-in" style={{ animationDelay: '0.8s' }}>
           <div className="absolute -inset-4 bg-gradient-to-r from-primary/20 via-accent/20 to-purple-500/20 rounded-2xl blur-xl opacity-40" />
           <div className="relative bg-surface/80 backdrop-blur-sm rounded-2xl border border-white/10 p-6 glow">
             <div className="flex items-center gap-2 mb-4">
@@ -105,7 +105,7 @@ export default function Hero() {
                       <div className="text-xs text-text-secondary mb-1">{item.name}</div>
                       <div className="text-lg font-bold text-white">{item.count}</div>
                       <div className="mt-2 h-1 bg-white/5 rounded-full overflow-hidden">
-                        <div className={`h-full rounded-full bg-gradient-to-r ${
+                        <div className={`h-full rounded-full bg-gradient-to-r animate-progress ${
                           item.color === 'blue' ? 'from-blue-500 to-blue-400' :
                           item.color === 'purple' ? 'from-purple-500 to-purple-400' :
                           'from-cyan-500 to-cyan-400'
