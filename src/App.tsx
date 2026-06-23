@@ -12,9 +12,20 @@ import Footer from './components/Footer'
 import PaymentSuccess from './pages/PaymentSuccess'
 import MarkdownPage from './pages/MarkdownPage'
 import TermsPage from './pages/TermsPage'
+import FeedbackPage from './pages/FeedbackPage'
+import changelogMd from './assets/md/changelog.md?raw'
+import docsMd from './assets/md/docs.md?raw'
+import faqMd from './assets/md/faq.md?raw'
 
-const changelogMd = '/md/changelog.md'
-const docsMd = '/md/docs.md'
+function PageTransition({ children }: { children: React.ReactNode }) {
+  const location = useLocation()
+
+  return (
+    <div key={location.pathname} className="animate-page-in">
+      {children}
+    </div>
+  )
+}
 
 function useScrolled() {
   return useSyncExternalStore(
@@ -40,7 +51,7 @@ function SiteLayout({ children }: { children: React.ReactNode }) {
       <MouseGlow />
       <Particles />
       <Navbar scrolled={scrolled} />
-      {children}
+      <PageTransition>{children}</PageTransition>
       <Footer />
     </div>
   )
@@ -63,9 +74,11 @@ export default function App() {
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<SiteLayout><Home /></SiteLayout>} />
-        <Route path="/changelog" element={<SiteLayout><div className="max-w-4xl mx-auto px-6 py-24"><MarkdownPage src={changelogMd} /></div></SiteLayout>} />
-        <Route path="/docs" element={<SiteLayout><div className="max-w-4xl mx-auto px-6 py-24"><MarkdownPage src={docsMd} /></div></SiteLayout>} />
+        <Route path="/changelog" element={<SiteLayout><div className="max-w-4xl mx-auto px-6 py-24"><MarkdownPage content={changelogMd} /></div></SiteLayout>} />
+        <Route path="/docs" element={<SiteLayout><div className="max-w-4xl mx-auto px-6 py-24"><MarkdownPage content={docsMd} /></div></SiteLayout>} />
+        <Route path="/faq" element={<SiteLayout><div className="max-w-4xl mx-auto px-6 py-24"><MarkdownPage content={faqMd} /></div></SiteLayout>} />
         <Route path="/terms" element={<TermsPage />} />
+        <Route path="/feedback" element={<FeedbackPage />} />
         <Route path="/payment-success" element={<PaymentSuccess />} />
       </Routes>
     </BrowserRouter>
