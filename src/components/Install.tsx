@@ -3,12 +3,13 @@ import { SpotlightCard } from './InteractiveCards'
 
 const installMethods = [
   {
-    id: 'fpk',
-    label: 'FPK 安装',
-    desc: '推荐方式，适合 fnOS 用户',
+    id: 'store',
+    label: '应用商店安装',
+    desc: '推荐方式，通过飞牛应用商店一键安装',
     commands: [
-      { label: '命令行安装', code: 'appcenter-cli install-fpk com.xuanran.archiver.fpk' },
-      { label: '手动安装', code: '# 1. 启用手动安装\nappcenter-cli manual-install enable\n# 2. 通过 fnOS Web 界面上传 .fpk 文件' },
+      { label: '步骤 1', code: '打开 fnOS 应用中心' },
+      { label: '步骤 2', code: '搜索「时迹」' },
+      { label: '步骤 3', code: '点击安装，等待完成即可' },
     ],
   },
   {
@@ -90,7 +91,7 @@ function CodeBlock({ code }: { code: string }) {
 }
 
 export default function Install() {
-  const [activeTab, setActiveTab] = useState('fpk')
+  const [activeTab, setActiveTab] = useState('store')
   const method = installMethods.find((m) => m.id === activeTab)!
 
   const sectionRef = useRef<HTMLDivElement>(null)
@@ -129,7 +130,7 @@ export default function Install() {
             几步即可<span className="gradient-text">开始归档</span>
           </h2>
           <p className="text-text-secondary max-w-lg mx-auto">
-            支持 FPK 一键安装或开发者本地构建。
+            通过飞牛应用商店即可一键安装，开发者也可本地构建调试。
           </p>
         </div>
 
@@ -165,7 +166,7 @@ export default function Install() {
 
         <div className="mt-12 grid grid-cols-1 md:grid-cols-3 gap-4">
           {[
-            { icon: '📦', title: '一键安装', desc: '通过 FPK 包管理器直接安装到 fnOS' },
+            { icon: '📦', title: '一键安装', desc: '通过飞牛应用商店直接安装到 fnOS' },
             { icon: '🔧', title: '开发者友好', desc: 'Vite 热重载 + Uvicorn 自动重启' },
             { icon: '🚀', title: '生产就绪', desc: 'SQLite WAL 模式 + 增量扫描' },
           ].map((item, i) => (
