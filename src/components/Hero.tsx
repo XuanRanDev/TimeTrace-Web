@@ -61,11 +61,10 @@ export default function Hero() {
           fnOS 原生应用 · v1.0.1
         </div>
 
-        <h1 className="text-5xl md:text-7xl lg:text-8xl font-extrabold tracking-tight leading-[1.1] mb-6">
+        <h1 className="text-5xl md:text-7xl lg:text-8xl font-extrabold tracking-tight leading-[1.05] mb-6">
           <span className="text-white block opacity-0 animate-fade-in-up" style={{ animationDelay: '0.2s' }}>
             时间的痕迹
           </span>
-          <br />
           <span className="gradient-text block opacity-0 animate-fade-in-up" style={{ animationDelay: '0.4s' }}>
             井然有序
           </span>

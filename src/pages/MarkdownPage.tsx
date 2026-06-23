@@ -1,28 +1,8 @@
-import { useState, useEffect } from 'react'
 import Markdown from 'react-markdown'
 import remarkGfm from 'remark-gfm'
 import rehypeRaw from 'rehype-raw'
 
-export default function MarkdownPage({ src }: { src: string }) {
-  const [content, setContent] = useState('')
-  const [loading, setLoading] = useState(true)
-
-  useEffect(() => {
-    fetch(src)
-      .then((r) => r.text())
-      .then(setContent)
-      .catch(() => setContent('# 加载失败'))
-      .finally(() => setLoading(false))
-  }, [src])
-
-  if (loading) {
-    return (
-      <div className="min-h-[400px] flex items-center justify-center">
-        <div className="w-8 h-8 border-2 border-white/20 border-t-primary rounded-full animate-spin" />
-      </div>
-    )
-  }
-
+export default function MarkdownPage({ content }: { content: string }) {
   return (
     <div className="max-w-4xl mx-auto markdown-body">
       <Markdown
