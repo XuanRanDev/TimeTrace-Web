@@ -1,6 +1,7 @@
 import Markdown from 'react-markdown'
 import remarkGfm from 'remark-gfm'
 import rehypeRaw from 'rehype-raw'
+import rehypeSlug from 'rehype-slug'
 import termsMd from '../assets/md/terms.md?raw'
 
 export default function TermsPage() {
@@ -18,12 +19,15 @@ export default function TermsPage() {
 
         <Markdown
           remarkPlugins={[remarkGfm]}
-          rehypePlugins={[rehypeRaw]}
+          rehypePlugins={[rehypeRaw, rehypeSlug]}
           components={{
-            h1: ({ children }) => <h1 className="text-3xl font-bold text-white mb-6 first:mt-0">{children}</h1>,
-            h2: ({ children }) => <h2 className="text-xl font-semibold text-white mb-4 mt-8 pb-3 border-b border-white/10">{children}</h2>,
-            h3: ({ children }) => <h3 className="text-lg font-semibold text-white mb-3 mt-6">{children}</h3>,
+            h1: ({ children, id }) => <h1 id={id} className="text-3xl font-bold text-white mb-6 scroll-mt-24 first:mt-0">{children}</h1>,
+            h2: ({ children, id }) => <h2 id={id} className="text-xl font-semibold text-white mb-4 mt-8 pb-3 border-b border-white/10 scroll-mt-24">{children}</h2>,
+            h3: ({ children, id }) => <h3 id={id} className="text-lg font-semibold text-white mb-3 mt-6 scroll-mt-24">{children}</h3>,
             p: ({ children }) => <p className="text-text-secondary leading-relaxed mb-4">{children}</p>,
+            a: ({ children, href }) => (
+              <a href={href} className="text-accent hover:text-accent/80 underline underline-offset-2 transition-colors">{children}</a>
+            ),
             ul: ({ children }) => <ul className="list-disc list-inside text-text-secondary space-y-1.5 mb-4">{children}</ul>,
             ol: ({ children }) => <ol className="list-decimal list-inside text-text-secondary space-y-1.5 mb-4">{children}</ol>,
             li: ({ children }) => <li className="leading-relaxed">{children}</li>,
