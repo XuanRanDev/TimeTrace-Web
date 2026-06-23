@@ -107,8 +107,8 @@ export default function Hero() {
                 <div className="w-3 h-3 rounded-full bg-green-400 hover:bg-green-500 transition-colors" />
                 <span className="ml-3 text-xs text-text-secondary font-mono">时迹 · 文件归档管理</span>
               </div>
-              <div className="grid grid-cols-12 gap-4 text-left">
-                <div className="col-span-3 bg-dark/60 rounded-xl p-4 space-y-3">
+              <div className="grid grid-cols-1 md:grid-cols-12 gap-4 text-left">
+                <div className="md:col-span-3 bg-dark/60 rounded-xl p-4 space-y-3">
                   <div className="flex items-center gap-2 text-xs text-text-secondary">
                     <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 7v10a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-6l-2-2H5a2 2 0 00-2 2z" /></svg>
                     目录
@@ -122,12 +122,12 @@ export default function Hero() {
                     </div>
                   ))}
                 </div>
-                <div className="col-span-9 space-y-3">
-                  <div className="flex items-center justify-between">
+                <div className="md:col-span-9 space-y-3">
+                  <div className="flex items-center justify-between flex-wrap gap-2">
                     <span className="text-sm font-medium text-white">2024 / 06</span>
                     <span className="text-xs text-emerald-400 bg-emerald-400/10 px-2 py-0.5 rounded hover:bg-emerald-400/20 transition-colors">已归档 1,247 个文件</span>
                   </div>
-                  <div className="grid grid-cols-3 gap-2">
+                  <div className="grid grid-cols-3 gap-1 sm:gap-2">
                     {[
                       { name: 'Photos', count: '892', color: 'blue', pct: '85%' },
                       { name: 'Videos', count: '213', color: 'purple', pct: '72%' },
@@ -149,7 +149,7 @@ export default function Hero() {
                       </div>
                     ))}
                   </div>
-                  <div className="flex items-center gap-3 text-xs text-text-secondary">
+                  <div className="flex items-center gap-3 text-xs text-text-secondary flex-wrap">
                     <span className="flex items-center gap-1">
                       <span className="w-1.5 h-1.5 rounded-full bg-blue-400" />图片
                     </span>
@@ -159,7 +159,7 @@ export default function Hero() {
                     <span className="flex items-center gap-1">
                       <span className="w-1.5 h-1.5 rounded-full bg-cyan-400" />文档
                     </span>
-                    <span className="ml-auto">SHA1 去重 · 增量扫描 · EXIF 提取</span>
+                    <span className="ml-auto hidden sm:inline">SHA1 去重 · 增量扫描 · EXIF 提取</span>
                   </div>
                 </div>
               </div>
