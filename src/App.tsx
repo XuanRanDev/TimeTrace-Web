@@ -1,4 +1,4 @@
-import { useEffect, useSyncExternalStore } from 'react'
+import { useLayoutEffect, useSyncExternalStore } from 'react'
 import { BrowserRouter, Routes, Route, useLocation } from 'react-router-dom'
 import Navbar from './components/Navbar'
 import MouseGlow from './components/MouseGlow'
@@ -42,7 +42,7 @@ function SiteLayout({ children }: { children: React.ReactNode }) {
   const location = useLocation()
   const scrolled = useScrolled()
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     window.scrollTo(0, 0)
   }, [location.pathname])
 
