@@ -6,10 +6,10 @@ const installMethods = [
     id: 'store',
     label: '应用商店安装',
     desc: '推荐方式，通过飞牛应用商店一键安装',
-    commands: [
-      { label: '步骤 1', code: '打开 fnOS 应用中心' },
-      { label: '步骤 2', code: '搜索「时迹」' },
-      { label: '步骤 3', code: '点击安装，等待完成即可' },
+    steps: [
+      { icon: '1', text: '打开 fnOS 应用中心' },
+      { icon: '2', text: '搜索「时迹」' },
+      { icon: '3', text: '点击安装，等待完成即可' },
     ],
   },
   {
@@ -153,14 +153,27 @@ export default function Install() {
         <SpotlightCard className="rounded-2xl border border-white/5 hover:border-white/10 transition-colors duration-300">
           <div className="bg-surface/30 rounded-2xl p-6 md:p-8">
             <p className="text-sm text-text-secondary mb-6">{method.desc}</p>
-            <div className="space-y-4">
-              {method.commands.map((cmd) => (
-                <div key={cmd.label}>
-                  <div className="text-xs font-medium text-text-secondary mb-2 uppercase tracking-wider">{cmd.label}</div>
-                  <CodeBlock code={cmd.code} />
-                </div>
-              ))}
-            </div>
+            {method.steps ? (
+              <div className="space-y-4">
+                {method.steps.map((step) => (
+                  <div key={step.icon} className="flex items-center gap-4">
+                    <span className="flex-shrink-0 w-8 h-8 flex items-center justify-center rounded-full bg-primary/20 text-primary text-sm font-bold">
+                      {step.icon}
+                    </span>
+                    <span className="text-text-secondary">{step.text}</span>
+                  </div>
+                ))}
+              </div>
+            ) : (
+              <div className="space-y-4">
+                {method.commands!.map((cmd) => (
+                  <div key={cmd.label}>
+                    <div className="text-xs font-medium text-text-secondary mb-2 uppercase tracking-wider">{cmd.label}</div>
+                    <CodeBlock code={cmd.code} />
+                  </div>
+                ))}
+              </div>
+            )}
           </div>
         </SpotlightCard>
 
