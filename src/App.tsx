@@ -1,5 +1,5 @@
 import { useLayoutEffect, useSyncExternalStore } from 'react'
-import { BrowserRouter, Routes, Route, useLocation } from 'react-router-dom'
+import { BrowserRouter, Routes, Route, useLocation, useNavigationType } from 'react-router-dom'
 import Navbar from './components/Navbar'
 import MouseGlow from './components/MouseGlow'
 import Particles from './components/Particles'
@@ -40,11 +40,27 @@ function useScrolled() {
 
 function SiteLayout({ children }: { children: React.ReactNode }) {
   const location = useLocation()
+  const navigationType = useNavigationType()
   const scrolled = useScrolled()
 
   useLayoutEffect(() => {
+    // 浏览器前进/后退（POP）：交还给浏览器自己的滚动位置恢复机制，不要强制归零，
+    // 否则"返回"永远会回到页面顶部，而不是离开前的阅读位置
+    if (navigationType === 'POP') return
+
+    // 带锚点的跳转（包括跨页面，如 /docs#多用户与数据隔离）：内容是客户端渲染的，
+    // 浏览器在首次加载/路由切换时根本看不到目标标题，原生的锚点跳转必然落空，
+    // 所以这里手动找到目标元素并滚动过去
+    if (location.hash) {
+      const target = document.getElementById(decodeURIComponent(location.hash.slice(1)))
+      if (target) {
+        target.scrollIntoView()
+        return
+      }
+    }
+
     window.scrollTo(0, 0)
-  }, [location.pathname])
+  }, [location.pathname, location.hash, navigationType])
 
   return (
     <div className="min-h-screen bg-dark">
