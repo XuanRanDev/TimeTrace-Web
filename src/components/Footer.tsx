@@ -14,7 +14,7 @@ export default function Footer() {
               </span>
             </Link>
             <p className="text-sm text-text-secondary max-w-sm leading-relaxed">
-              时间的痕迹，井然有序。一款面向 NAS 的智能文件归档工具，让每一个文件回到它应属于的时间位置。
+              时间的痕迹，井然有序。<br/>让每一个文件回到它应属于的时间位置。
             </p>
           </div>
 
