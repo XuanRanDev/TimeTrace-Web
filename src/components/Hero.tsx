@@ -90,10 +90,10 @@ export default function Hero() {
             <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-700" />
           </a>
           <a
-            href="#features"
+            href="/docs"
             className="px-8 py-3.5 text-text-secondary hover:text-white font-medium rounded-xl border border-white/10 hover:border-white/20 hover:bg-white/5 transition-all duration-300 hover:scale-105"
           >
-            了解更多
+            使用教程
           </a>
         </div>
 
