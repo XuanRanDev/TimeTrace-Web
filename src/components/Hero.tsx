@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from 'react'
+import { Link } from 'react-router-dom'
 import { TiltCard } from './InteractiveCards'
 
 export default function Hero() {
@@ -53,13 +54,14 @@ export default function Hero() {
       <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(37,99,235,0.08)_0%,transparent_70%)]" />
 
       <div className="relative z-10 max-w-5xl mx-auto px-6 text-center">
-        <div
-          className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/5 border border-white/10 text-sm text-text-secondary mb-8 opacity-0 animate-fade-in-up"
+        <Link
+          to="/changelog"
+          className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/5 border border-white/10 text-sm text-text-secondary mb-8 opacity-0 animate-fade-in-up hover:bg-white/10 hover:border-white/20 transition-colors cursor-pointer"
           style={{ animationDelay: '0.1s' }}
         >
           <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
-          fnOS 原生应用 · v1.0.1
-        </div>
+          v1.1.0 版本已发布
+        </Link>
 
         <h1 className="text-5xl md:text-7xl lg:text-8xl font-extrabold tracking-tight leading-[1.05] mb-6">
           <span className="text-white block opacity-0 animate-fade-in-up" style={{ animationDelay: '0.2s' }}>

@@ -80,9 +80,7 @@ export default function FeedbackPage() {
                 <div>
                   <span className="text-white font-medium">应用日志文件（非常重要）</span>
                   <p className="text-sm mt-1 text-text-secondary/80">
-                    日志文件位于 NAS 上的{' '}
-                    <code className="px-1.5 py-0.5 bg-white/10 rounded text-accent text-sm font-mono">{"/vol{x}/@appdata/dev.xuanran.timetrace/info.log"}</code>
-                    ，其中 <code className="px-1.5 py-0.5 bg-white/10 rounded text-accent text-sm font-mono">x</code> 为应用安装所在存储空间的序号（通常为 <code className="px-1.5 py-0.5 bg-white/10 rounded text-accent text-sm font-mono">1</code> 或 <code className="px-1.5 py-0.5 bg-white/10 rounded text-accent text-sm font-mono">2</code>）。请将该日志文件作为附件一并提交。
+                    请在时迹的系统设置页面导出系统日志与应用日志文件（仅管理员可见，v1.1.0版本新增功能）。
                   </p>
                 </div>
               </li>
