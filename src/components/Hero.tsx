@@ -60,7 +60,7 @@ export default function Hero() {
           style={{ animationDelay: '0.1s' }}
         >
           <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
-          v1.1.0 版本已发布
+          v1.1.0 版本测试中
         </Link>
 
         <h1 className="text-5xl md:text-7xl lg:text-8xl font-extrabold tracking-tight leading-[1.05] mb-6">
