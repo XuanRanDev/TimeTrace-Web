@@ -77,7 +77,19 @@ export default function Hero() {
           style={{ animationDelay: '0.6s' }}
         >
           时迹是一款面向 NAS 的智能文件归档工具。自动提取 EXIF 拍摄时间、识别文件名时间戳，
-          将散落的文件按 <span className="text-accent font-medium">年 / 月 / 分类</span> 重建为清晰的时间轴。
+          将散落的文件按{' '}
+          <span className="relative group/tag inline-block">
+            <Link
+              to="/docs#归档目录结构"
+              className="text-accent font-medium border-b border-dashed border-accent/50 hover:border-accent transition-colors"
+            >
+              年 / 月 / 分类
+            </Link>
+            <span className="pointer-events-none absolute bottom-full left-1/2 -translate-x-1/2 mb-2 whitespace-nowrap rounded-lg border border-white/10 bg-surface px-2.5 py-1 text-xs text-text-secondary opacity-0 transition-opacity group-hover/tag:opacity-100">
+              点击查看示例结构
+            </span>
+          </span>{' '}
+          重建为清晰的时间轴。
         </p>
 
         <div
