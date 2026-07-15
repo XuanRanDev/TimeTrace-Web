@@ -27,7 +27,7 @@ export default function Hero() {
   return (
     <section className="relative min-h-screen flex items-center justify-center overflow-hidden pt-16" ref={containerRef}>
       <div
-        className="absolute rounded-full blur-3xl opacity-20 animate-float-1 w-96 h-96 bg-primary"
+        className="absolute rounded-full md:blur-3xl opacity-20 animate-float-1 w-96 h-96 bg-primary"
         style={{
           top: `calc(10% + ${mousePos.y * -15}px)`,
           left: `calc(-5% + ${mousePos.x * -15}px)`,
@@ -35,7 +35,7 @@ export default function Hero() {
         }}
       />
       <div
-        className="absolute rounded-full blur-3xl opacity-20 animate-float-2 w-80 h-80 bg-accent"
+        className="absolute rounded-full md:blur-3xl opacity-20 animate-float-2 w-80 h-80 bg-accent"
         style={{
           top: `calc(20% + ${mousePos.y * -10}px)`,
           right: `calc(0% + ${mousePos.x * 10}px)`,
@@ -60,7 +60,7 @@ export default function Hero() {
           style={{ animationDelay: '0.1s' }}
         >
           <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
-          v1.2.1 版本测试中
+          v1.2.3 版本测试中
         </Link>
 
         <h1 className="text-5xl md:text-7xl lg:text-8xl font-extrabold tracking-tight leading-[1.05] mb-6">
