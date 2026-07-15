@@ -10,6 +10,7 @@ const docSubLinks = [
   { label: '命名规则', href: '/docs/naming' },
   { label: '媒体修复工具', href: '/docs/tools' },
   { label: '重复查找', href: '/docs/duplicates' },
+  { label: '加密冷备份', href: '/docs/backup' },
 ]
 
 const navLinks = [

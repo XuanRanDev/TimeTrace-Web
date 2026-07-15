@@ -23,6 +23,7 @@ import docsRulesMd from './assets/md/docs/rules.md?raw'
 import docsNamingMd from './assets/md/docs/naming.md?raw'
 import docsToolsMd from './assets/md/docs/tools.md?raw'
 import docsDuplicatesMd from './assets/md/docs/duplicates.md?raw'
+import docsBackupMd from './assets/md/docs/backup.md?raw'
 
 function PageTransition({ children }: { children: React.ReactNode }) {
   const location = useLocation()
@@ -114,6 +115,7 @@ export default function App() {
         <Route path="/docs/naming" element={<SiteLayout><DocPage content={docsNamingMd} /></SiteLayout>} />
         <Route path="/docs/tools" element={<SiteLayout><DocPage content={docsToolsMd} /></SiteLayout>} />
         <Route path="/docs/duplicates" element={<SiteLayout><DocPage content={docsDuplicatesMd} /></SiteLayout>} />
+        <Route path="/docs/backup" element={<SiteLayout><DocPage content={docsBackupMd} /></SiteLayout>} />
         <Route path="/faq" element={<SiteLayout><DocPage content={faqMd} /></SiteLayout>} />
         <Route path="/terms" element={<SiteLayout><TermsPage /></SiteLayout>} />
         <Route path="/feedback" element={<SiteLayout><FeedbackPage /></SiteLayout>} />
